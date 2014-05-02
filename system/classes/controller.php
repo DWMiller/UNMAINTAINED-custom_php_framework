@@ -1,12 +1,11 @@
 <?php
 class Controller {
     
-	public $view;
+	public $output;
 	protected $TPL = array();
 	
 	function __construct() {
-		 $this->view = new View;
-		 
+		 $this->output = new Output;
 	}
 	
 	
