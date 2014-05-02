@@ -8,6 +8,12 @@ class Home extends Controller {
 	
 	function index () {
 		$this->TPL['dispWelcomeMsg'] = true;
-		$this->view->render('home_v',$this->TPL);
+		$this->output->json_response($this->TPL);
 	}
+
+	function other () {
+		$this->TPL['dispWelcomeMsg'] = true;
+		$this->output->json_response($this->TPL);
+	}
+
 }
