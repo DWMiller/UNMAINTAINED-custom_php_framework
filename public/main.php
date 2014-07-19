@@ -37,25 +37,24 @@ spl_autoload_register('myAutoLoader');
 parsePrettyPath(); // Converts path into control parameters - defined in config/functions.php
 
 //default conditions
-$controllerName = (isset($_REQUEST["c"]) and empty($_REQUEST["c"]) == false )
-					?  $_REQUEST["c"] : DEFAULT_CONTROLLER;
-$methodName 	= (isset($_REQUEST["m"]) and empty($_REQUEST["m"]) == false )
-					?  $_REQUEST["m"] : DEFAULT_METHOD;
- 
-//Class name is firstletter in capitol letters
-$controllerName = ucfirst($controllerName);
-//Instantiate controller class. Shouldn't fail, since we checked in auto_load
-$controllerObj = new $controllerName; 
 
-//call controller and method 
-if (method_exists($controllerObj, $methodName))
-{
-	 call_user_func(array($controllerObj,$methodName));
-} else {
-	 trigger_error("Non-existent  method has been called: $controllerName, $methodName");
+foreach ($_REQUEST['app'] as $controller => $methods) {
+
+	$controllerName = ($controller == 'default' ? DEFAULT_CONTROLLER : $controller);	
+
+	$controllerName = ucfirst($controllerName);
+	$controllerObj = new $controllerName; 
+
+	foreach ($methods as $method => $args) {
+
+		$method = ($method == 'default' ? DEFAULT_METHOD : $method);	
+
+		if (method_exists($controllerObj, $method)) {
+			 call_user_func(array($controllerObj,$method),$args);
+		} else {
+			 trigger_error("Non-existent  method has been called: $controllerName, $method");
+		}
+	}
 }
- 
-
-
 
 
