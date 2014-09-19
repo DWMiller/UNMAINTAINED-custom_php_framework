@@ -1,19 +1,17 @@
 <?php	
 
-session_start();
-if (!isset($_SESSION['startTimeOfSession'])){$_SESSION['startTimeOfSession'] = time();}
+date_default_timezone_set('America/Toronto');
+
 
 //error reporting
-ini_set('error_reporting',E_ALL ^ (E_NOTICE | E_WARNING | E_DEPRECATED));
+// ini_set('error_reporting',E_ALL ^ (E_NOTICE | E_WARNING | E_DEPRECATED));
+error_reporting(-1);
 
 //makes the URL neat and small
 $_SERVER["PHP_SELF"]  = basename($_SERVER["PHP_SELF"]);
 
 //Paths to inportant system files
 define('ROOT', dirname(dirname(__FILE__)));
-define('ERRORHANDLER_VIEW',ROOT.'/system/errorPages/errorHandler.view.php');
-define('DATABASEERROR_VIEW',ROOT.'/system/errorPages/dataBaseError.view.php');
-
 define('LOGFILE',ROOT.'/system/logFiles/logfile.txt');
 
 //default values
