@@ -33,27 +33,3 @@ function myAutoLoader ($className)
 
  		trigger_error("Controller file $classFile.php could not be lazy loaded");
  }
-
-function parsePrettyPath()
-{
-  // Parse pretty URL into params
-  $url = explode('?', $_SERVER['REQUEST_URI']);
-  if (count($url) == 2)
-  {
-    $params = explode('/', $url[1]);
-    array_shift($params);
-
-    if (count($params) >= 1)
-    {
-      $vars = array();
-      
-      $_REQUEST["c"] = array_shift($params);
-    }
-
-    if (count($params) >= 1)
-    {
-      $_REQUEST["m"] = array_shift($params);
-      $_REQUEST['args'] =& $params; 
-    }
-  }
-}
