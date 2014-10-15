@@ -12,25 +12,41 @@ $_SERVER["PHP_SELF"]  = basename($_SERVER["PHP_SELF"]);
 
 //Paths to inportant system files
 define('ROOT', dirname(dirname(__FILE__)));
-define('LOGFILE',ROOT.'/system/logFiles/logfile.txt');
 
 //default values
 define ('DEFAULT_CONTROLLER','home');
 define ('DEFAULT_METHOD','index');
 
+function myAutoLoader ($className) {
+
+    $classFile = strtolower($className) . '.php';
+    
+    $locations = array(
+        	'/system/classes/',
+          '/application/controllers/',
+          '/application/models/');
+        
+        foreach($locations as $location)
+        {
+            $file = ROOT . $location.$classFile;
+            if(file_exists($file)){
+                require_once($file);
+                return;
+            }            
+        }
+
+ 		trigger_error("Controller file $classFile.php could not be lazy loaded");
+ }
+
+// Set function for use as autoloader
+spl_autoload_register('myAutoLoader');
+
 //Eager load all configuration files
- foreach (glob(ROOT.'/system/config/*.php') as $filename) {
+ foreach (glob(ROOT.'/application/config/*.php') as $filename) {
      require_once $filename;
  }
 
 $GLOBALS['config'] =& $config;
-
-
-//General and program errors reported here....
-set_error_handler('errorHandler',E_ALL ^ (E_NOTICE | E_WARNING | E_DEPRECATED));
-
-// Set function for use as autoloader - defined in config/functions.php
-spl_autoload_register('myAutoLoader');
 
 $requestStr = json_decode(file_get_contents('php://input'),true);
 
