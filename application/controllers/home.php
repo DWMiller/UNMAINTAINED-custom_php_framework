@@ -1,6 +1,6 @@
 <?php 	
 
-class Home extends Controller {
+class Home extends Core_Controller {
 	
 	 function __construct() {
 		  parent::__construct();

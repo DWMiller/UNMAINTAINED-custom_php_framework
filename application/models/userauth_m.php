@@ -1,6 +1,6 @@
 <?php
 
-class Userauth_m extends Model {
+class Userauth_m extends Core_Model {
 
 	private $username;
 	private $password;
@@ -74,6 +74,7 @@ class Userauth_m extends Model {
 
 	private function hackerCheck()
 	{
+		$currentIP = $this->users->getIP();
 		// if ($_SESSION['auth']['ipAddress'] != $_SERVER['REMOTE_ADDR']) {
 		// 	$this->logout();
 		// }
@@ -96,10 +97,26 @@ class Userauth_m extends Model {
 	public function validSessionExists()
 	{
 		if(isset($_REQUEST['session'])) {
-			return $this->users->getActiveUsersByField($_REQUEST['session'],'session')[0];
-		} else {
-			return false;
+			$user = $this->users->getActiveUsersByField($_REQUEST['session'],'session');
+			$user = $user[0];
+			return $user;
 		}
+		
+		return false;
+	}
+
+	private function getIP() {
+		//Test if it is a shared client
+		if (!empty($_SERVER['HTTP_CLIENT_IP'])){
+		  $ip=$_SERVER['HTTP_CLIENT_IP'];
+		//Is it a proxy address
+		}elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+		  $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+		}else{
+		  $ip=$_SERVER['REMOTE_ADDR'];
+		}
+		//The value of $ip at this point would look something like: "192.0.34.166"
+		return ip2long($ip); //The $ip would now look something like: 1073732954			
 	}
 
 }

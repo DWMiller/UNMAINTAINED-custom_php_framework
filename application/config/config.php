@@ -4,9 +4,10 @@ function myAutoLoader ($className) {
     $classFile = strtolower($className) . '.php';
     
     $locations = array(
-            '/system/classes/',
-          '/application/controllers/',
-          '/application/models/');
+        '/system/classes/',
+        '/application/core/',
+        '/application/controllers/',
+        '/application/models/');
         
         foreach($locations as $location)
         {

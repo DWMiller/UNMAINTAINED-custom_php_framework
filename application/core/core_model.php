@@ -1,7 +1,7 @@
 <?php
-class Users_m extends Core_Model {
+
+class Core_Model extends Model {
 	public function __construct(){ 
 		 parent::__construct();
 	 } 
-		
 }
