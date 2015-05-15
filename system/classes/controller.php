@@ -7,6 +7,4 @@ class Controller {
 	function __construct() {
 		 $this->output = new Output;
 	}
-	
-	
 }

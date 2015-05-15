@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Frameworks Demo</title>
+
+    <link rel="icon" type="image/png" href="assets/images/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div id="main-container">
+        <div id="page-auth" class="module hidden">
+            <form id="form-auth" class="ui">
+                <fieldset>
+                    <legend>Login</legend>
+                    <label class="scr-only localize" data-localize="email" for="form-auth-email">Email</label>
+                    <input id="form-auth-email" name="email" value="admin" placeholder="Email" type="email">
+                    <br>
+                    <label class="scr-only localize" data-localize="password" for="form-auth-password">Password</label>
+                    <input id="form-auth-password" name="password" value="admin" placeholder="Password" type="password">
+                    <br>
+                    <label>
+                        <input id="form-auth-password_mask" type="checkbox">
+                        <span class="localize" data-localize="show_password">LOCALIZED: Show Password</span>
+                    </label>
+                    <br>
+                    <br>
+                    <button id="form-auth-login" class="localize" data-localize="login" name="login">Login</button>
+                    <button id="form-auth-register" class="localize" data-localize="register" name="register">Register</button>
+                    <p id="auth-msg"></p>
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="page-logout" class="module ui overlay panel bottom hidden">
+            <form id="form-logout" class="">
+                <button id="form-logout-logout" class="localize" data-localize="logout" name="logout">Logout</button>
+            </form>
+        </div>
+
+
+    </div>
+    <!-- End main container -->
+
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    
+    <script type="text/javascript" src="js/dmf.js"></script>
+
+    <script type="text/javascript" src="js/base.config.js"></script>
+
+    <script type="text/javascript" src="js/controller.js"></script>
+
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/register.js"></script>
+
+
+    <script type="text/javascript">
+    var settings = {
+        startup: 'controller',
+        container: '#main-container',
+        debug: true
+    }
+
+    CORE.activate(settings);
+    </script>
+
+</body>
+
+</html>

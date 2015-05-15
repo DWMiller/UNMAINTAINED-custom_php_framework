@@ -3,7 +3,7 @@
 date_default_timezone_set('America/Toronto');
 
 function myErrorHandler($errno, $errstr, $errfile, $errline) {
-  $TPL['server-error'] = [$errstr,$errfile,'Line: '.$errline];
+  $TPL['server-error'] = array($errstr,$errfile,'Line: '.$errline);
   echo json_encode($TPL);
   exit;
 }

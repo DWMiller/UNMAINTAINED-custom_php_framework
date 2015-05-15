@@ -7,10 +7,10 @@ class Database {
   
 	public function __construct(   ) {
 			try { 
-				self::$PDOConnection  = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+				self::$PDOConnection  = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME, DB_USER, DB_PASS);				
 				self::$PDOConnection->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}catch(PDOException $e){
-				if ($e->getCode() == 0)    //connection failed code
+				//if ($e->getCode() == 0)    //connection failed code
 					$this->showErrorPage("Connection to database failed. ",$e);								
 			} 
 	}
@@ -40,7 +40,9 @@ class Database {
 						'traceDetails' 	=> $e->getTrace());
 		 
 		$this->errorLog($TPL);
-		include DATABASEERROR_VIEW; 
+	    echo '<pre>';
+	    echo print_r($TPL,true);
+	    echo '</pre>';
 		exit();
 	}
 
@@ -62,6 +64,13 @@ class Database {
 	
 	}
 
+	public function execute(&$stmt,$data) {
+		try {
+		    $stmt->execute($data);
+		} catch(PDOException $e) {
+			return false;
+		}  		
+	}
 
 }
 

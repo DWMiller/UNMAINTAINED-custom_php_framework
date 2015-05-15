@@ -3,20 +3,24 @@ function myAutoLoader ($className) {
 
     $classFile = strtolower($className) . '.php';
     
+    
     $locations = array(
         '/system/classes/',
+        '/system/authentication/',
         '/application/core/',
         '/application/controllers/',
         '/application/models/');
         
-        foreach($locations as $location)
-        {
+        foreach($locations as $location) {
             $file = ROOT . $location.$classFile;
+
             if(file_exists($file)){
                 require_once($file);
                 return;
             }            
         }
 
-        trigger_error("Controller file $classFile.php could not be lazy loaded");
+        trigger_error("Controller file $classFile could not be lazy loaded");
  }
+
+ define('SESSION_LIMIT',2000); 
